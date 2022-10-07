@@ -11,7 +11,7 @@ function App() {
 
   const [taskState, setTaskState] = useState({
     tasks: [
-      { id: 1, title: "Dishes", description: "Empty dishwasher", deadline: "Today" },
+      { id: 1, title: "Dishes", description: "Empty dishwasher", deadline: "Today", priority: "Low" },
       { id: 2, title: "Laundry", description: "Fold clothes and put away", deadline: "Tomorrow", done: false },
       { id: 3, title: "Clean the shower", description: "Deep clean", deadline: "Tomorrow", done: false },
       { id: 4, title: "Hoover Carpet", description: "Use vanish", deadline: "Tomorrow", done: false },
@@ -29,30 +29,34 @@ function App() {
   const deleteHandler = (taskIndex) => {
     const tasks = [...taskState.tasks];
     tasks.splice(taskIndex, 1);
-    setTaskState({tasks});
-  } 
+    setTaskState({ tasks });
+  }
 
-  const [ formState, setFormState ] = useState({
+  const [formState, setFormState] = useState({
     title: "",
     description: "",
+    priority: "",
     deadline: ""
   });
 
   const formChangeHandler = (event) => {
-    let form = {...formState};
+    let form = { ...formState };
 
-    switch(event.target.name) {
+    switch (event.target.name) {
       case "title":
-          form.title = event.target.value;
-          break;
+        form.title = event.target.value;
+        break;
       case "description":
-          form.description = event.target.value;
-          break;
+        form.description = event.target.value;
+        break;
+      case "priority":
+        form.priority = event.target.value;
+        break;
       case "deadline":
-          form.deadline = event.target.value;
-          break;
+        form.deadline = event.target.value;
+        break;
       default:
-          form = formState;
+        form = formState;
     }
     setFormState(form);
   }
@@ -62,24 +66,40 @@ function App() {
     event.preventDefault();
 
     const tasks = [...taskState.tasks];
-    const form = {...formState};
+    const form = { ...formState };
 
     form.id = uuidv4();
 
     tasks.push(form);
-    setTaskState({tasks});
+    setTaskState({ tasks });
   }
+
+  /*const priorityControl(){
+    if (this.state.selection == "Low") {
+      return (
+        <div>Hello</div>
+      );
+    } else if (this.state.selection == "Medium") {
+      return (
+        <div>Hola</div>
+      );
+    } else if (this.state.selection == "High") {
+      return (
+        <div>Bonjour</div>
+      );
+    }
+  }*/
 
   return (
     <div className="container">
-            {/* App Header */}
-        <Container component="main">
+      {/* App Header */}
+      <Container component="main">
         <Typography
           component="h1"
           variant="h2"
           align="center"
           gutterBottom
-          sx = {{
+          sx={{
             backgroundColor: 'gray',
             textAlign: 'center',
             color: 'white',
@@ -92,19 +112,20 @@ function App() {
         </Typography>
       </Container>
       {/* End App Header */}
-       {/* Task Card Grid */}
-       <Container maxWidth="md" component="main">
+      {/* Task Card Grid */}
+      <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-top" justifyContent="center">
           {taskState.tasks.map((task, index) => (
-                <Task 
-                title={task.title}
-                description={task.description}
-                deadline={task.deadline}
-                done={task.done}
-                key={task.id}
-                markDone = {() => doneHandler(index)}
-                deleteTask = {() => deleteHandler(index)}
-              />
+            <Task
+              title={task.title}
+              description={task.description}
+              deadline={task.deadline}
+              priority={task.priority}
+              done={task.done}
+              key={task.id}
+              markDone={() => doneHandler(index)}
+              deleteTask={() => deleteHandler(index)}
+            />
           ))}
         </Grid>
       </Container>

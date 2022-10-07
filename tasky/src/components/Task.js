@@ -7,72 +7,95 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
 
 const Task = (props) => {
 
- return (
-    <Grid
-        item
-        key={props.id}
-        xs={12}
-        md={4}
-    >
-        <Card sx={{
-            backgroundColor: props.done ? 'lightgrey' : 'lightblue',
-            padding: '20px'
-        }}>
-            <CardHeader
-                title={props.title}
-                sx={{
-                    backgroundColor: 'white',
-                    borderRadius: '3px',
-                    padding: '20px',
-                    textAlign: 'center'
-                }}
-            />
-            <CardContent>
-                <Box
+    return (
+        <Grid
+            item
+            key={props.id}
+            xs={12}
+            md={4}
+        >
+            <Card sx={{
+                backgroundColor: props.done ? 'lightgrey' : 'lightblue',
+                padding: '20px'
+            }}>
+                <CardHeader
+                    title={props.title}
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'baseline',
-                        mb: 2,
-                        padding: '20px'
+                        backgroundColor: 'white',
+                        borderRadius: '3px',
+                        padding: '20px',
+                        textAlign: 'center'
                     }}
-                >
-                    <Typography component="p" variant="subtitle2" color="text.primary">
-                        Due: {props.deadline}
-                    </Typography>
-                </Box>
-                <Typography
-                    component="p"
-                    variant="subtitle1"
-                    align="center"
-                    sx={{ fontStyle: 'italic' }}
-                >
-                    {props.description}
-                </Typography>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'space-between', padding: '20px' }}>
-                <Button variant="contained" size="small" color="success" onClick={props.markDone}>
-                    Done
-            </Button>
-                <Button variant="contained" size="small" color="error" onClick={props.deleteTask}>
-                    Delete
-            </Button>
-            </CardActions>
-        </Card>
-    </Grid>
+                />
+                <CardContent>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'baseline',
+                            mb: 2,
+                            padding: '20px'
+                        }}
+                    >
+                        <Typography component="p" variant="subtitle2" color="text.primary">
+                            Due: {props.deadline}
+                        </Typography>
 
-    /*return (
-        <div className="card" style={{backgroundColor: props.done ? 'lightgrey' : '#5bb4c4'}}>
-            <p className="title">{props.title}</p>
-            <p>Due: {props.deadline}</p>
-            <p>{props.description}</p>
-            <button onClick={props.markDone} className='doneButton'>Done</button>
-            <button className='deleteButton' onClick={props.deleteTask}>Delete</button>
-        </div>
-    )*/
+                    </Box>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'baseline',
+                            mb: 2,
+                            padding: '20px'
+                        }}
+                    >
+                        <Chip component="p" label={`${props.priority}`} style={{
+                            display: 'flex',
+                            fontSize: '12px',
+                            fontWeight: 'bold',
+                            backgroundColor: 'green',
+                            marginLeft: '10px',
+                            marginTop: '10px'
+                        }} />
+
+
+                    </Box>
+
+                    <Typography
+                        component="p"
+                        variant="subtitle1"
+                        align="center"
+                        sx={{ fontStyle: 'italic' }}
+                    >
+                        {props.description}
+                    </Typography>
+                </CardContent>
+                <CardActions sx={{ justifyContent: 'space-between', padding: '20px' }}>
+                    <Button variant="contained" size="small" color="success" onClick={props.markDone}>
+                        Done
+            </Button>
+                    <Button variant="contained" size="small" color="error" onClick={props.deleteTask}>
+                        Delete
+            </Button>
+                </CardActions>
+            </Card>
+        </Grid>
+
+        /*return (
+            <div className="card" style={{backgroundColor: props.done ? 'lightgrey' : '#5bb4c4'}}>
+                <p className="title">{props.title}</p>
+                <p>Due: {props.deadline}</p>
+                <p>{props.description}</p>
+                <button onClick={props.markDone} className='doneButton'>Done</button>
+                <button className='deleteButton' onClick={props.deleteTask}>Delete</button>
+            </div>
+        )*/
     )
 }
 
